@@ -13,7 +13,7 @@ const todos = [
 function App() {
 
   return <Fragment>
-    <Title backgroundColor="green" hidden>Mon composant</Title>
+    <Title backgroundColor="green" id='title' className= 'title'>Mon composant</Title>
     
     <input type="text" />
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque corporis molestiae obcaecati! Iste, quibusdam suscipit similique officiis odio sint minus id architecto veniam eaque illum voluptate dolorum molestiae placeat. Provident!
@@ -27,7 +27,7 @@ function App() {
   </Fragment>
 }
 
-function Title ({backgroundColor, hidden, children}) {
+function Title ({backgroundColor, hidden, ...props}) {
   if(hidden) {
     return null;
   }
@@ -36,17 +36,17 @@ function Title ({backgroundColor, hidden, children}) {
     alert ("j'ai cliqué sur le h1");
   }
   return <Fragment> 
-    <p style={{backgroundColor: backgroundColor}}>{children}</p>
-  {showtitle ?
-    <h1 onClick={handleClick} id="title" className="title" dangerouslySetInnerHTML={{__html:title}} style={style}></h1> : 
-    <p className="je" style={{backgroundColor: backgroundColor}}>{children}</p>
+    <p style={{backgroundColor: backgroundColor}}{...props}/>
+    {showtitle ?
+    <h1 onClick={handleClick} {...props} dangerouslySetInnerHTML={{__html:title}} style={style}></h1> : 
+    <p {...props} style={{backgroundColor: backgroundColor}}/>
   }
   </Fragment>
 }
 
 Title.propTypes = {
   backgroundColor: PropTypes.string,
-  children: PropTypes.string.isRequired,
+  hidden: PropTypes.bool,
 };
 
 export default App
