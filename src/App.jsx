@@ -1,22 +1,28 @@
-import { Fragment } from "react"
 import { useState } from "react"
 
 function App() {
-
-  const [firstname, setFirstname] = useState('John Doe')
+  const [value, setValue] = useState("")
+  const [checked, setChecked] = useState(true)
 
   const handleChange = (e) => {
-    setFirstname(e.target.value)
+    setValue(e.target.value)
   }
-
-  const reset = () => {
-    setFirstname('')
+  const toggleChecked = () =>{
+    setChecked(!checked)
   }
+  // const handleSubmit = (e) => {
+  //   e.preventDefault()
+  //   console.log(new FormData(e.target))
+  // }
 
-  return <Fragment>
-    <input type="text" name="firstname" value={firstname} onChange={handleChange}/>  
-    <button onClick={reset} type="button">Reset</button>
-  </Fragment>
+  return <form
+  //  onSubmit={handleSubmit}
+   >
+    {/* <input type="text" name="firstname" /> */}
+    <input type="text" value={value} onChange={handleChange} />
+    <input type="checkbox" checked={checked} onChange={toggleChecked} />
+    <button disabled={!checked}>Envoyer</button>
+  </form>
 }
 
 export default App
