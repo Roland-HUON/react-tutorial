@@ -1,28 +1,32 @@
-import { useState } from "react"
+import { Fragment, useState } from "react"
+import PropTypes from "prop-types";
 
 function App() {
-  const [value, setValue] = useState("")
-  const [checked, setChecked] = useState(true)
 
-  const handleChange = (e) => {
-    setValue(e.target.value)
-  }
-  const toggleChecked = () =>{
-    setChecked(!checked)
-  }
-  // const handleSubmit = (e) => {
-  //   e.preventDefault()
-  //   console.log(new FormData(e.target))
-  // }
+  const [checked, setChecked] = useState(false)
 
-  return <form
-  //  onSubmit={handleSubmit}
-   >
-    {/* <input type="text" name="firstname" /> */}
-    <input type="text" value={value} onChange={handleChange} />
-    <input type="checkbox" checked={checked} onChange={toggleChecked} />
-    <button disabled={!checked}>Envoyer</button>
+  return<form>
+    <CGUCheckbox checked={checked} onCheck={setChecked}/>
+    <button disabled={!checked}>Envoyer le formulaire</button>
   </form>
+}
+
+function CGUCheckbox({checked, onCheck}){
+  return <Fragment>
+    <label>
+      <input 
+        type="checkbox" 
+        onChange={(e)=> onCheck(e.target.checked)}
+        checked={checked} 
+      />
+      Accepter les conditions d&apos;utilisation
+    </label>
+    </Fragment>
+}
+
+CGUCheckbox.propTypes = {
+  checked: PropTypes.bool.isRequired,
+  onCheck: PropTypes.func.isRequired
 }
 
 export default App
